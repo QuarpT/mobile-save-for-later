@@ -45,7 +45,7 @@ class FetchSavedcArticlesSpec extends Specification with ThrownMessages with Moc
 
   "when the identity service provides a user id we retrieve the articles from the persistence layers" in new SetupWithUserId {
     //savedArticlesPersistence.read(argThat(===(userId))) returns(Success(Some(savedArticles)))
-    fetchSavedArticlesImpl.retrieveForUser(requestHeaders)
+    val result = fetchSavedArticlesImpl.retrieveForUser(requestHeaders)
     //val r = Await.result(res, Duration.Inf)
     there was one (savedArticlesPersistence).read(argThat(===(userId)))
   }
@@ -53,21 +53,21 @@ class FetchSavedcArticlesSpec extends Specification with ThrownMessages with Moc
   "when the identity provides a user id the users saved articles are returned" in new SetupWithUserId {
     savedArticlesPersistence.read(argThat(===(userId))) returns(Success(Some(savedArticles)))
     val savedArticlesFuture = fetchSavedArticlesImpl.retrieveForUser(requestHeaders)
-    Await.result(savedArticlesFuture, Duration.Inf) mustEqual(Some(SyncedPrefs(userId, Some(savedArticles))))
+    Await.result(savedArticlesFuture, Duration.Inf) mustEqual(SyncedPrefs(userId, Some(savedArticles)))
   }
 
   "when the user has no articles then the response contains an empty list" in new SetupWithUserId {
     val emptyArticles = SavedArticles("123454", List.empty)
     savedArticlesPersistence.read(argThat(===(userId))) returns(Success(Some(emptyArticles)))
     val savedArticlesFuture = fetchSavedArticlesImpl.retrieveForUser(requestHeaders)
-    Await.result(savedArticlesFuture, Duration.Inf) mustEqual(Some(SyncedPrefs(userId, Some(emptyArticles))))
+    Await.result(savedArticlesFuture, Duration.Inf) mustEqual(SyncedPrefs(userId, Some(emptyArticles)))
   }
 
   "when the user has never saved any articles the response contains an empty list" in new SetupWithUserId {
      val emptyArticles = SavedArticles("1", List.empty)
      savedArticlesPersistence.read(argThat(===(userId))).returns(Success(None))
      val savedArticlesFuture = fetchSavedArticlesImpl.retrieveForUser(requestHeaders)
-     Await.result(savedArticlesFuture, Duration.Inf) mustEqual(Some(SyncedPrefs(userId, Some(emptyArticles))))
+     Await.result(savedArticlesFuture, Duration.Inf) mustEqual(SyncedPrefs(userId, Some(emptyArticles)))
   }
 
 

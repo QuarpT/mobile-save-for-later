@@ -11,18 +11,18 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 trait FetchSavedArticles {
-    def retrieveForUser(headers: Map[String, String]) : Future[Option[SyncedPrefs]]
+    def retrieveForUser(headers: Map[String, String]) : Future[SyncedPrefs]
 }
 
 class FetchSavedArticlesImpl(identityService: IdentityService, savedArticlesPersistence: SavedArticlesPersistence)(implicit executionContext: ExecutionContext) extends FetchSavedArticles with Logging with AuthHeaderParser{
 
-  private def wrapSavedArticles(userId: String, maybeSavedArticles: Try[Option[SavedArticles]]) : Try[Option[SyncedPrefs]] = maybeSavedArticles match {
-    case Success(Some(articles)) => Success(Some(SyncedPrefs(userId, Some(articles))))
-    case Success(_) => Success(Some(SyncedPrefs(userId, Some(SavedArticles.empty))))
+  private def wrapSavedArticles(userId: String, maybeSavedArticles: Try[Option[SavedArticles]]) : Try[SyncedPrefs] = maybeSavedArticles match {
+    case Success(Some(articles)) => Success(SyncedPrefs(userId, Some(articles)))
+    case Success(_) => Success(SyncedPrefs(userId, Some(SavedArticles.empty)))
     case _ => Failure(RetrieveSavedArticlesError("Could not update articles"))
   }
 
-  override def retrieveForUser(headers: Map[String, String]): Future[Option[SyncedPrefs]] = {
+  override def retrieveForUser(headers: Map[String, String]): Future[SyncedPrefs] = {
     (for {
       identityHeaders <- getIdentityHeaders(headers)
     } yield {

@@ -13,7 +13,7 @@ class FetchArticlesController(fetchSavedArticles: FetchSavedArticles)(implicit e
   override def apply(lambdaRequest: LambdaRequest): Future[LambdaResponse] = {
 
      val futureResponse =  fetchSavedArticles.retrieveForUser(lambdaRequest.headers).transformWith {
-       case Success(Some(syncedPrefs)) =>
+       case Success(syncedPrefs) =>
          syncedPrefs.savedArticles.foreach ( sp =>
             logger.debug(s"Returning found: ${sp.articles.size} articles")
          )
