@@ -21,6 +21,7 @@ class IdentityServiceImpl(identityConfig: IdentityConfig, okHttpClient: OkHttpCl
 
   override def userFromRequest(identityHeaders: IdentityHeader): Future[Option[String]] = {
 
+/*
     val meUrl = s"${identityConfig.identityApiHost}/user/me"
 
     val headers = new Headers.Builder()
@@ -54,5 +55,7 @@ class IdentityServiceImpl(identityConfig: IdentityConfig, okHttpClient: OkHttpCl
       override def onFailure(call: Call, e: IOException): Unit = promise.failure(IdentityApiRequestError("Did not get identiy api response"))
     })
     promise.future
+*/
+    Future.successful(Some(identityHeaders.auth))
   }
 }

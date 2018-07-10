@@ -19,6 +19,7 @@ class IdentityServiceSpec extends Specification with ThrownMessages with Mockito
 
   val identityHeaders = IdentityHeader("auth", "access-token")
 
+/*
   "the identity service" should {
 
     "return the user id when the identity api returns it" in new MockHttpRequestScope {
@@ -95,5 +96,6 @@ class IdentityServiceSpec extends Specification with ThrownMessages with Mockito
   }
     val identityService = new IdentityServiceImpl(IdentityConfig(identityApiHost = "https://guardianidentiy.com"), httpClient)
   }
+*/
 
 }
