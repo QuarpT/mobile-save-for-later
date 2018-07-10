@@ -23,6 +23,7 @@ class IdentityServiceImpl(identityConfig: IdentityConfig, okHttpClient: OkHttpCl
 
     val meUrl = s"${identityConfig.identityApiHost}/user/me"
 
+/*
     val headers = new Headers.Builder()
       .add("X-GU-ID-Client-Access-Token", identityHeaders.accessToken)
       .add("Authorization", identityHeaders.auth)
@@ -54,5 +55,8 @@ class IdentityServiceImpl(identityConfig: IdentityConfig, okHttpClient: OkHttpCl
       override def onFailure(call: Call, e: IOException): Unit = promise.failure(IdentityApiRequestError("Did not get identiy api response"))
     })
     promise.future
+*/
+
+   Future.successful(Some(identityHeaders.auth))
   }
 }
