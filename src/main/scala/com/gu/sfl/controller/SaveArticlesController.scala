@@ -34,7 +34,7 @@ class SaveArticlesController(updateSavedArticles: UpdateSavedArticles)(implicit 
        maybeUpdatedArticles
      }).map {
        case Right(syncedPrefs) =>
-         logger.debug("Got articles back from db")
+         logger.debug(s"Got ${syncedPrefs.articles.length} articles back from db")
          okSavedArticlesResponse(syncedPrefs)
        case Left(error) =>
           logger.error(s"Error saving articles: ${error.message}")
