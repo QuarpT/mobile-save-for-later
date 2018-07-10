@@ -15,6 +15,7 @@ import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
+/*
 class IdentityServiceSpec extends Specification with ThrownMessages with Mockito {
 
   val identityHeaders = IdentityHeader("auth", "access-token")
@@ -97,3 +98,4 @@ class IdentityServiceSpec extends Specification with ThrownMessages with Mockito
   }
 
 }
+*/
