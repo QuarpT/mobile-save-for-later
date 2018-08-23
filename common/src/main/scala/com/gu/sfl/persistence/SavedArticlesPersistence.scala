@@ -59,14 +59,14 @@ class SavedArticlesPersistenceImpl(persistanceConfig: PersistenceConfig) extends
     logger.info(s"Saving articles with userId $userId")
     exec(client)(table.put(DynamoSavedArticles(userId, savedArticles))) match {
       case Some(Right(articles)) =>
-        logger.debug("Succcesfully saved articles")
+        logger.info("Succcesfully saved articles")
         Success(Some(articles.ordered))
       case Some(Left(error)) =>
         val exception = new IllegalArgumentException(s"$error")
         logger.debug(s"Exception Thrown saving articles:", exception)
         Failure(exception)
       case None => {
-        logger.debug("Successfully saved but none retrieved")
+        logger.info("Successfully saved but none retrieved")
         Success(Some(savedArticles))
       }
     }
