@@ -52,13 +52,12 @@ class SavedArticlesMergerImpl(savedArticlesMergerConfig: SavedArticlesMergerConf
       case _ => Left(SavedArticleMergeError("Could not retrieve current articles"))
     }
   }
-  private val bigInt10000 = BigInt(10000)
-  private val bigInt9999 = BigInt(9999)
+
   private def logSomeOfReadAndToWrite(existingArticles: SavedArticles, requestedArticles: SavedArticles): Unit = {
     val readArticlesJson = Jackson.mapper.writeValueAsString(existingArticles)
-    if ((BigInt(Md5Utils.computeMD5Hash(readArticlesJson.getBytes)) % bigInt10000) == bigInt9999) {
+
       logger.info(s"WRITE_COMPARISON: Read: $readArticlesJson and Write: ${Jackson.mapper.writeValueAsString(requestedArticles)}")
-    }
+
   }
 
   //This is done here for debugging puposes. To be removed when we are connfident it's no longer needed
