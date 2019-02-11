@@ -27,6 +27,7 @@ class IdentityServiceSpec extends Specification with ThrownMessages with Mockito
       Await.result(futureUserId, Duration.Inf) mustEqual (Some("1234"))
     }
 
+/*
     "return none when the user id is not found" in new MockBadIdResponseScope {
       val futureUserId = identityService.userFromRequest(identityHeaders)
       Await.result(futureUserId, Duration.Inf) mustEqual (None)
@@ -41,6 +42,7 @@ class IdentityServiceSpec extends Specification with ThrownMessages with Mockito
       }
 
     }
+*/
   }
 
   trait IdentityRequestFailsScope extends MockHttpRequestScope {
