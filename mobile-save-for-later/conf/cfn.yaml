@@ -46,7 +46,7 @@ Mappings:
       TableWriteCapacity: 1
       ReservedConcurrency: 1
     PROD:
-      TableReadCapacity: 110
+      TableReadCapacity: 125
       TableWriteCapacity: 50
       ReservedConcurrency: 50
 
